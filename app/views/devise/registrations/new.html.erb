@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <div class="card border border-light-subtle rounded-5">
+      <h2 class="text-center text-dark bg-light py-4 mb-0">新規登録</h2>
+        <div class="form-body p-4">
+          <% if @user.errors.any? %>
+            <ul class="alert alert-danger text-left" role="alert">
+              <h6 class="alert-heading">
+                <%= @user.errors.count %>件のエラーが発生しました
+              </h6>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+          <%= form_with model: @user, url: user_registration_path do |f| %>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+              </div>
+              <%= f.text_field :name, autofocus: true, placeholder: "名前", class: "form-control" %>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span>
+              </div>
+              <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-control" %>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-lock"></i></span>
+              </div>
+              <%= f.password_field :password, placeholder: "パスワード(#{@minimum_password_length}文字以上)", class: "form-control" %>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span>
+              </div>
+              <%= f.password_field :password_confirmation, placeholder: "パスワード確認", class: "form-control" %>
+            </div>
+            <%= f.submit "登録", class: "btn btn-block btn-info mt-5" %>
+          <% end %>
+        </div>
+    </div>
+  </div>
+</div>
+

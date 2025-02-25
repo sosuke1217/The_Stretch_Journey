@@ -1,0 +1,38 @@
+<div class="row d-flex justify-content-center">
+  <div class="col col-lg-9 col-xl-8">
+    <div class="card">
+      <div class="card-body">
+        <div class="rounded shadow-sm d-flex"; height:200px;>
+          <div class="mt-5 flex-column" style="width: 150px;">
+            <%= image_tag @user.get_profile_image(150,150) %>
+            <% if @user == current_user %>
+              <div class="btn btn-outline-info text-body">
+                <%= link_to "プロフィール編集", edit_user_path(@user), class: 'text-info' %>
+              </div>
+            <% end %>
+          </div>
+          <div class="ml-5" style="margin-top: 130px;">
+            <h5><%= @user.name %></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rounded shadow card-body p-4 text-black bg-white border">
+      <div class="mb-5  text-body">
+        <p class="lead mb-1">My 投稿</p>
+          <div class="p-3">
+            <% @posts.each do |post| %>
+              <div class="border mb-2">
+                <%= link_to post_path(post.id) do %>
+                  <p class="text-dark">タイトル: <%= post.title %></p>
+                <% end %>
+                <p>内容: <%= post.body %></p>
+                <p><%= link_to "#{post.comments.count} コメント", post_path(post.id), class: 'text-dark' %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

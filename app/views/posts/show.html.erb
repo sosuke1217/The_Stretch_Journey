@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="card"
+      <div class="card-body">
+        <div class="h5">
+          <%= @post.user.name %>
+        </div>
+        
+  <p>title: <%= @post.title %></p>
+  <p>body: <%= @post.body %></p>
+  <p>投稿日: <%=@post.created_at.strftime('%Y/%m/%d') %></p>
+  <% if @post.user == current_user %>
+    <%= link_to "編集", edit_post_path(@post), method: :get %>
+    <%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+  <% end %>
+  <% if @post.liked_by?(current_user) %>
+    <p>
+      <%= link_to post_like_path(@post), method: :delete do %>
+        ♥<%= @post.likes.count %> いいね
+      <% end %>
+    </p>
+    <% else %>
+    <p>
+      <%= link_to post_like_path(@post), method: :post do %>
+       ♡<%= @post.likes.count %> いいね
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<div>
+  <p>コメント件数: <%= @post.comments.count %></p>
+  <% @post.comments.each do |comment| %>
+    <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
+    <%= comment.user.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <%if comment.user == current_user %>
+      <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+
+<div>
+  <%= form_with model: [@post, @comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメント" %>
+    <%= f.submit "送信" %>
+  <% end %>
+</div>

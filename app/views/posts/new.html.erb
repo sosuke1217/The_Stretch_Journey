@@ -1,0 +1,17 @@
+<div class="row justify-content-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <div class="card border border-light-subtle rounded-5">
+      <h2 class="text-center text-dark bg-light py-4 mb-0">投稿フォーム</h2>
+        <div class="form-body p-4">
+          <%= render 'layouts/error_messages', object: @post %>
+          <%= form_with model: @post do |f| %>
+            <h4>タイトル</h4>
+              <div class="input mb-3">
+                <%= f.text_field :title, class: 'form-control' %>
+              </div>
+            <h4>内容</h4>
+              <div class="input mb-2">
+                <%= f.text_area :body, class: 'form-control' %>
+              </div>
+            <p><%= f.submit '投稿', class: 'btn btn-block btn-info' %></p>
+          <% end %>

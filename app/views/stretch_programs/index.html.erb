@@ -1,0 +1,15 @@
+
+<h2 class="text-center text-dark bg-light py-2 mb-0">投稿一覧</h2>
+<ul>
+  <% @stretch_programs.each do |stretch_program| %>
+  <div class="card my-4">
+    <div class="card-body">
+      <%= link_to stretch_program_path(stretch_program) do %>
+        <h5 class="card-title"><%= stretch_program.title %></h5>
+      <% end %>
+      <p class="card-text">必要時間: <%= stretch_program.duration %> 分間</p>
+      <p class="card-text">難易度: <%= stretch_program.difficulty %></p>
+    </div>
+  </div>
+  <% end %>
+</ul>

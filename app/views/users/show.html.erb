@@ -20,14 +20,19 @@
     <div class="rounded shadow card-body p-4 text-black bg-white border">
       <div class="mb-5  text-body">
         <p class="lead mb-1">My 投稿</p>
-          <div class="p-3">
+          <div class="p-2">
             <% @posts.each do |post| %>
-              <div class="border mb-2">
+              <div class="border rounded mb-2">
                 <%= link_to post_path(post.id) do %>
-                  <p class="text-dark">タイトル: <%= post.title %></p>
+                  <p class="pl-2 pt-2"><%= post.title %></p>
                 <% end %>
-                <p>内容: <%= post.body %></p>
-                <p><%= link_to "#{post.comments.count} コメント", post_path(post.id), class: 'text-dark' %></p>
+                <p class="pl-2">内容: <%= post.body %></p>
+                <div class="card-footer">
+                  <%= post.likes.count %>
+                  <i class="fa-solid fa-heart"></i>
+                  <%= post.comments.count %>
+                  <i class="fa-solid fa-comment"></i>
+                </div>
               </div>
             <% end %>
           </div>

@@ -1,13 +1,23 @@
-<h1>編集画面</h1>
-<%= render 'layouts/error_messages', object: @post %>
-<%= form_with model: @post, url: post_path(@post), method: :patch do |f| %>
-
-  <h4>タイトル</h4>
-  <%= f.text_field :title %>
-  
-  <h4>本文</h4>
-  <%= f.text_area :body %>
-  
-  <%= f.submit '保存' %>
-  
-<% end %>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <div class="card border border-light-subtle rounded-5">
+      <h2 class="text-center text-dark bg-light py-4 mb-0">投稿編集</h2>
+      <div class="form-body p-4">
+        <%= render 'layouts/error_messages', object: @post %>
+        <%= form_with model: @post, url: post_path(@post), method: :patch do |f| %>
+          <label for="post_title" class="form-label h4">タイトル</label>
+          <div class="form-group mb-3">
+            <%= f.text_field :title, class: "form-control", id: "post_title" %>
+          </div>
+          <label for="post_body" class="form-label h4">内容</label>  
+          <div class="input-group mb-3">
+            <%= f.text_area :body, class: "form-control", id: "post_body", rows: 5 %>
+          </div>
+          <div class="text-center">
+            <%= f.submit "更新", class: "btn btn-block btn-info" %> 
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

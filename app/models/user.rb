@@ -5,12 +5,24 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   has_many :posts, dependent: :destroy
+  has_many :stretch_programs, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_one_attached :profile_image
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
+
+  scope :active_users, -> { where(is_active: true) }
+  scope :rejected_users, -> { where(is_active: false) }
+
+  def deactivate
+    update_attribute(:is_active, false)
+  end
+
+  def activate
+    update_attribute(:is_active, true)
+  end
 
   def get_profile_image(width, height)
     unless profile_image.attached?

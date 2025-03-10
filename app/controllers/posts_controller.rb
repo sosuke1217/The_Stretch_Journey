@@ -15,6 +15,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    @active_users_posts = Post.active_users_posts
   end
 
   def show
@@ -43,6 +44,12 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body)
+  end
+
+  def deactivate_user
+    user = User.find(params[:id])
+    user.deactivate
+    redirect_to users_path
   end
 
   private

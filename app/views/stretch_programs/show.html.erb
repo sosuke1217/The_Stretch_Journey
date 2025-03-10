@@ -1,0 +1,30 @@
+<div class="card my-4">
+  <div class="card-body">
+    <h5 class="card-title"><%= @stretch_program.title %></h5>
+    <p class="card-text"><strong>内容:</strong></p>
+    <ul>
+      <% @stretch_program.description.split("\n").each do |stretch| %>
+        <li><%= stretch.strip %></li>
+      <% end %>
+    </ul>
+    <p><strong>必要時間:</strong> <%= @stretch_program.duration %>分</p>
+    <p><strong>難易度:</strong> <%= @stretch_program.difficulty %></p>
+    <div class="stretch-tags">
+      <p><strong>Tags:</strong></p>
+      <ul class="list-inline">
+        <% @stretch_program.stretch_tags.each do |tag| %>
+          <li class="list-inline-item">
+            <span class="badge bg-info"><%= tag.name %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    
+    <% if @stretch_program.user == current_user %>
+      <div class="btn-group" role="group">
+        <%= link_to '編集', edit_stretch_program_path(@stretch_program), class: "btn btn-primary" %>
+        <%= link_to '削除', @stretch_program, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %> 
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,11 +1,37 @@
-<h2>プロフィール編集</h2>
-<%= render 'layouts/error_messages', object: @user %>
-<%= form_with model: @user do |f| %>
-  <label for="inputName">Name</label>
-  <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%>
-  <label for="inputImage">Profile Image</label>
-  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %> 
-  <label for="inputEmail">メールアドレス</label>
-  <%= f.email_field :email, placeholder: "メールアドレス" %>
-  <%= f.submit "変更を保存" %>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <div class="card border border-light-subtle rounded-5">
+      <h2 class="text-center text-dark bg-light py-4 mb-0">プロフィール編集</h2>
+      <div class="form-body p-4">
+        <%= render 'layouts/error_messages', object: @user %>
+        <%= form_with model: @user do |f| %>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
+            </div>
+            <%= f.text_field :name, autofocus: true, placeholder: "名前", class: "form-control" %>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-image"></i></span>
+            </div>
+            <%= f.file_field :profile_image, accept: "image/*" %>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-envelope"></i></span>
+            </div>
+            <%= f.email_field :email, autofocus: true, placeholder: "メールアドレス", class: "form-control" %>
+          </div>
+          <%= f.submit "登録", class: "btn btn-block btn-info mt-5" %>
+        <% end %>
+        <p>アクティブ状態: <%= @user.is_active ? "アクティブ" : "非アクティブ" %></p>
+<% if @user.is_active %>
+  <%= button_to "非アクティブ化", deactivate_user_path(@user), method: :put %>
+<% else %>
+  <%= button_to "アクティブ化", activate_user_path(@user), method: :put %>
 <% end %>
+      </div>
+    </div>
+  </div>
+</div>

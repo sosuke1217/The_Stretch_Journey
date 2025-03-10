@@ -1,11 +1,25 @@
-<% @posts.each do |post| %>
-  <div> 
-    <%= link_to post_path(post.id) do %>
-    <p>Title: <%= post.title %></p>
-    <% end %>
-    <p>Body: <%= post.body %></p>
-    <%= image_tag post.user.get_profile_image(100,100) %>
-    <p>ユーザーネーム: <%= post.user.name %></p>
-    <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+<h2 class="text-center text-dark bg-light py-2 mb-0">投稿一覧</h2>
+<% @active_users_posts.each do |post| %>
+  <div class="card my-4">
+    <div class="card-header">
+      <div class="d-flex justify-content align-items-center">
+        <div class="mr-3">
+          <%= image_tag post.user.get_profile_image(100,100), class:"rounded-circle" %>
+        </div>
+        <p class="ml-2 h5"><%= link_to post.user.name, user_path(post.user) %></p>
+      </div>
+    </div>
+    <div class="card-body">
+      <%= link_to post_path(post.id) do %>
+        <h5 class="card-title">Title: <%= post.title %></h5>
+      <% end %>
+      <p class="card-text">Body: <%= post.body %></p>
+    </div>
+    <div class="card-footer">
+        <%= post.likes.count %>
+        <i class="fa-solid fa-heart"></i>
+        <%= post.comments.count %>
+        <i class="fa-solid fa-comment"></i>
+    </div>
   </div>
 <% end %>

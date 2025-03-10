@@ -17,6 +17,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def deactivate
+    @user = User.find(params[:id])
+    @user.deactivate
+    redirect_to @user, notice: 'ユーザーを非アクティブ化しました'
+  end
+  
+  def activate
+    @user = User.find(params[:id])
+    @user.activate
+    redirect_to @user, notice: 'ユーザーをアクティブ化しました'
+  end
+
   private
 
   def user_params

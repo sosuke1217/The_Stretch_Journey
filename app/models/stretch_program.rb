@@ -1,4 +1,6 @@
 class StretchProgram < ApplicationRecord
+  attr_accessor :tag_names
+  
   belongs_to :user
   belongs_to :genre
   has_many :stretch_program_tags, dependent: :destroy
@@ -9,13 +11,32 @@ class StretchProgram < ApplicationRecord
   validates :difficulty, presence: true, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
   validates :genre_id, presence: true
 
-  def tag_names
-    stretch_tags.pluck(:name).join(',')
+  after_save :create_tags
+  after_update :not_used_stretch_tags_destroy
+
+  #def tag_names
+  #  stretch_tags.pluck(:name).join(',')
+  #end
+
+  #def tag_names=(names)
+  #  self.stretch_tags = names.split(',').map do |name|
+  #    StretchTag.find_or_create_by(name: name.strip)
+  #  end
+  #end
+
+  private
+
+  def create_tags
+    new_tag_names = self.tag_names
+    if new_tag_names.present?
+      new_tag_names.split(',').map{ |o| o.gsub(/[[:space:]]/, "") }.each do |name|
+        tag = StretchTag.find_or_create_by(name: name)
+        self.stretch_tags << tag
+      end
+    end
   end
 
-  def tag_names=(names)
-    self.stretch_tags = names.split(',').map do |name|
-      StretchTag.find_or_create_by(name: name.strip)
-    end
+  def not_used_stretch_tags_destroy
+    StretchTag.where.missing(:stretch_program_tags).destroy_all
   end
 end

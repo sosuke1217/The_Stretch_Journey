@@ -32,11 +32,9 @@
 
         <div class="form-group mb-3">
           <%= f.label :stretch_tags %><br>
-          <% StretchTag.all.each do |stretch_tag| %>
-            <div class="stretch-tag-item">
-              <%= check_box_tag "stretch_program[stretch_tag_ids][]", stretch_tag.id, @stretch_program.stretch_tags.include?(stretch_tag) %>
-              <%= label_tag "stretch_program_stretch_tag_ids_#{stretch_tag.id}", stretch_tag.name %>
-              <%= link_to "削除", stretch_program_path(@stretch_program, tag_id: stretch_tag.id), method: :delete, data: { confirm: "このタグを削除しますか？" }, class: "delete-tag-link" %>
+          <%= f.collection_check_boxes :stretch_tag_ids, StretchTag.all, :id, :name do |b| %>
+            <div>
+              <%= b.label { b.check_box + " " + b.text } %>
             </div>
           <% end %>
         </div>

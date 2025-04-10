@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 class="text-center mt-4 mb-4">ジャンル一覧</h2>
+  <%= render 'layouts/searches' %>
+  <%= link_to '新規ジャンル作成', new_admin_genre_path, class: 'btn btn-primary mb-3' %>
+  <ul class="list-group">
+    <% @genres.each do |genre| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <%= genre.name %>
+        <div class="btn-group">
+          <%= link_to '編集', edit_admin_genre_path(genre), class: 'btn btn-info btn-sm mr-2' %>
+          <%= link_to '削除', admin_genre_path(genre), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

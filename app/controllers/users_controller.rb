@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: :guest_login
+  
   def show
       @user = User.find(params[:id])
       @posts = @user.posts
+      @groups = @user.owner_groups
   end
 
   def edit
@@ -17,17 +20,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def deactivate
-    @user = User.find(params[:id])
-    @user.deactivate
-    redirect_to @user, notice: 'ユーザーを非アクティブ化しました'
-  end
-  
-  def activate
-    @user = User.find(params[:id])
-    @user.activate
-    redirect_to @user, notice: 'ユーザーをアクティブ化しました'
-  end
+  def guest_login
+    @user = User.guest
+    sign_in(@user)
+    redirect_to after_sign_in_path_for(@user)
+   end   
 
   private
 

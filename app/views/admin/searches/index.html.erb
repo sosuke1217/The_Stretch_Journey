@@ -1,0 +1,41 @@
+<table>
+  <tbody>
+    <% if @range == "User" %>
+      <tr>
+        <th colspan="2">Users search for "<%= @word %>"</th>
+      </tr>
+      <% if @users.present? %>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= image_tag user.get_profile_image(50, 50), class: "profile-image" %></td>
+            <td><%= link_to user.name, user_path(user) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% elsif @range == "Stretch" %>
+      <tr>
+        <th colspan="2">Stretch Program search for "<%= @word %>"</th>
+      </tr>
+      <% if @stretch_programs.present? %>
+        <% @stretch_programs.each do |stretch_program| %>
+          <tr>
+            <td><%= link_to stretch_program.title, stretch_program_path(stretch_program) %></td>
+            <td><%= stretch_program.description %></td>
+          </tr>
+        <% end %>
+      <% end %>
+      <% elsif @range == "Comment" %>
+      <tr>
+        <th colspan="2">Comments search for "<%= @word %>"</th>
+      </tr>
+    <% if @comments.present? %>
+      <% @comments.each do |comment| %>
+        <tr>
+          <td><%= comment.user.name %></td>
+          <td><%= comment.comment %></td>
+        </tr>
+      <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

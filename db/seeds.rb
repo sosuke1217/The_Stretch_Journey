@@ -13,3 +13,22 @@ genre_names = %w(
 
 genre_names.each { |name| Genre.create!(name: name) }
 
+require 'faker'
+
+10.times do
+  user = User.new(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: "password",
+    password_confirmation: "password"
+  )
+  user.save(validate: false)
+end
+
+10.times do
+  Post.create(
+    title: Faker::Lorem.sentence(word_count: 3),
+    body: Faker::Lorem.paragraph(sentence_count: 4),
+    user_id: rand(1..10)
+  )
+end

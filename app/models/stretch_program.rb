@@ -14,15 +14,19 @@ class StretchProgram < ApplicationRecord
   after_save :create_tags
   after_update :not_used_stretch_tags_destroy
 
-  #def tag_names
-  #  stretch_tags.pluck(:name).join(',')
-  #end
-
-  #def tag_names=(names)
-  #  self.stretch_tags = names.split(',').map do |name|
-  #    StretchTag.find_or_create_by(name: name.strip)
-  #  end
-  #end
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @stretch_program = StretchProgram.where("title LIKE?","#{word}")
+    elsif search == "forward_match"
+      @stretch_program = StretchProgram.where("title LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @stretch_program = StretchProgram.where("title LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @stretch_program = StretchProgram.where("title LIKE?","%#{word}%")
+    else
+      @stretch_program = StretchProgram.all
+    end
+  end
 
   private
 

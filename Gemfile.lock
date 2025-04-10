@@ -92,6 +92,8 @@ GEM
       dotenv (= 3.1.7)
       railties (>= 6.1)
     erubi (1.13.1)
+    faker (3.5.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.1)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86_64-darwin)
@@ -268,6 +270,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   dotenv-rails
+  faker
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)

@@ -1,6 +1,9 @@
 <div class="card my-4">
-  <div class="card-body">
+  <div class="card-header">
     <h5 class="card-title"><%= @stretch_program.title %></h5>
+  </div>
+  <div class="card-body">
+
     <p class="card-text"><strong>内容:</strong></p>
     <ul>
       <% @stretch_program.description.split("\n").each do |stretch| %>

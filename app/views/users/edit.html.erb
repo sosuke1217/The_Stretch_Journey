@@ -25,12 +25,6 @@
           </div>
           <%= f.submit "登録", class: "btn btn-block btn-info mt-5" %>
         <% end %>
-        <p>アクティブ状態: <%= @user.is_active ? "アクティブ" : "非アクティブ" %></p>
-<% if @user.is_active %>
-  <%= button_to "非アクティブ化", deactivate_user_path(@user), method: :put %>
-<% else %>
-  <%= button_to "アクティブ化", activate_user_path(@user), method: :put %>
-<% end %>
       </div>
     </div>
   </div>

@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 genre_names = %w(
-  genre_a
-  genre_b
-  genre_c
+  上半身
+  下半身
+  全身
 )
 
 genre_names.each { |name| Genre.create!(name: name) }
@@ -32,3 +32,8 @@ end
     user_id: rand(1..10)
   )
 end
+
+Admin.create!(
+  email: 'admin@example.com',
+  password: 'password'
+)
